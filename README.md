@@ -24,4 +24,34 @@ Herramienta para mockear servicios rest. https://getsandbox.com/
 ## Requisitos
 1. Tener un IDE instalado (eclipse, intellij, netbeans, etc)
 2. Abrir una cuenta en Sandbox
-3. Mockear servicios 
+3. Mockear servicios de entidad cliente
+
+## Ejercicio
+Se requiere un servicio que consulte y almacene una entidad cliente llamando un servicio rest.
+
+## Solución
+Se crea un servicio rest reactivo con endpoints funcionales que consulta y almacena la entidad cliente llamando un servicio rest simulado con getsandbox usando el cliente web reactivo webClient
+
+## Estructura de la solución
+
+Paquete: co.com.gcode.reactivewebclient
+
+### Clases
+Cliente: Clase entidad que representa un cliente de una institución. Esta anotada con lombok para su simplicidad. Sus 
+
+atributos:
+- documentId
+- documentType
+- name
+- mdmKey
+
+Application: Clase principal del microservicio que se encarga de lanzar springboot
+
+RestClientConfig: Clase que tiene el bean de configuración del webclient donde se configuran las propiedades y cabeceras del endpoint a consultar
+
+Route: Clase encargada de recibir las peticiones rest y redireccionarlas al correspondiente handler que resolverá la peticion. Equivale al controlador en el modelo reactivo orientado a anotaciones
+
+Handler: Clase encargada de procesar la operación de consulta y guardado en redis.
+
+
+
