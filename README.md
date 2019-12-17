@@ -53,5 +53,24 @@ Route: Clase encargada de recibir las peticiones rest y redireccionarlas al corr
 
 Handler: Clase encargada de procesar la operación de consulta y guardado en redis.
 
+## Endpoints del servicio
 
+### Consulta entidad cliente
+http://localhost:8081/client/{documentId}
 
+body: none
+
+### Guardar entidad cliente
+http://localhost:8081/client
+
+body:
+{
+    "documentId" : "1053796889",
+    "documentType" : "CC",
+    "name" : "Alejo Botero",
+    "mdmKey": "9999999999999999"
+}
+
+### Servicio rest consumido
+https://dry-butterfly-4551.getsandbox.com:443/client/{documentId}
+https://dry-butterfly-4551.getsandbox.com:443/client
