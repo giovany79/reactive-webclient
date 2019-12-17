@@ -1,0 +1,17 @@
+route:
+  client:
+    get: /client/{id}
+    create: /client
+
+
+rest:
+  endpoint: https://dry-butterfly-4551.getsandbox.com:443
+  uri:
+    mdm:
+      get: /client/{id}
+      create: /client
+
+
+
+server:
+  port: 8081
