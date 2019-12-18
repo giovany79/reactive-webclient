@@ -1,4 +1,4 @@
-package co.com.gcode;
+package co.com.gcode.reactivewebclient;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -13,18 +13,6 @@ public class RestClientConfig {
 
     @Value("${rest.endpoint}")
     private String url;
-
-    @Value("${rest.uri.mdm.get}")
-    private String uriMdm;
-
-    @Value("${rest.uri.mdm.create}")
-    private String uriMdmCreate;
-
-
-    @Bean
-    public String path(){
-        return uriMdm;
-    }
 
     @Bean
     public WebClient webClient() {

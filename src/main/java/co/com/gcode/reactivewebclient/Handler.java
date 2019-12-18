@@ -1,4 +1,4 @@
-package co.com.gcode;
+package co.com.gcode.reactivewebclient;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -8,16 +8,20 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
+/**
+ *  Clase que contiene la logica para consultar y crear la entidad cliente consumiento un servicio rest
+ *  @author Giovany Villegas
+ */
+
 @AllArgsConstructor
 @Component
 public class Handler {
 
+    private static final String PATH_CLIENT_CREATE = "/client";
+
+    private static final String PATH_CLIENT_GET= "/client/{id}";
 
     private final WebClient webclient;
-
-    private final String uriMdm;
-
-    private final String uriMdmCreate;
 
 
     /**
@@ -39,7 +43,7 @@ public class Handler {
      */
     public Mono<Client> getClientFromRest(String documentId){
         return webclient.get()
-                .uri(uriMdm, documentId)
+                .uri(PATH_CLIENT_GET, documentId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Client.class);
@@ -53,20 +57,27 @@ public class Handler {
     public Mono<ServerResponse> setClient(ServerRequest request) {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(saveClient(Client.builder()
+                .body(saveClient(Mono.just(Client.builder()
                         .documentId("8281377")
                         .name("Jaime Villegas")
                         .mdmKey("0987654321")
                         .documentType("CC")
-                        .build()), Boolean.class);
+                        .build())), Client.class);
 
     }
 
-    public Mono<Boolean> saveClient(Client client){
+
+    /**
+     * Metodo que obtiene la entidad y la envia al servicio rest usando web client para que esta sea almacenada
+     * @param client Entidad cliente
+     * @return client Entidad cliente almacenada
+     */
+    public Mono<Client> saveClient(Mono<Client> client){
         return webclient.post()
-                .uri(uriMdmCreate)
+                .uri(PATH_CLIENT_CREATE )
                 .contentType(MediaType.APPLICATION_JSON)
+                .body(client, Client.class)
                 .retrieve()
-                .bodyToMono(Boolean.class);
+                .bodyToMono(Client.class);
     }
 }

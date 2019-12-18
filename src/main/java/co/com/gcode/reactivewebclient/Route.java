@@ -1,4 +1,4 @@
-package co.com.gcode;
+package co.com.gcode.reactivewebclient;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,15 +18,13 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class Route {
 
-    @Value("${route.client.get}")
-    private String routeClientGet;
+    private static final String ROUTE_CLIENT_CREATE = "/client";
 
-    @Value("${route.client.create}")
-    private String routeClienteCreate;
+    private static final String ROUTE_CLIENT_GET= "/client/{id}";
 
     @Bean
     RouterFunction<ServerResponse> routes(Handler handler){
-        return route(GET(routeClientGet).and(accept(MediaType.APPLICATION_JSON)), handler::getClient)
-                .andRoute(POST(routeClienteCreate).and(accept(MediaType.APPLICATION_JSON)), handler::setClient);
+        return route(GET(ROUTE_CLIENT_GET).and(accept(MediaType.APPLICATION_JSON)), handler::getClient)
+                .andRoute(POST(ROUTE_CLIENT_CREATE).and(accept(MediaType.APPLICATION_JSON)), handler::setClient);
     }
 }

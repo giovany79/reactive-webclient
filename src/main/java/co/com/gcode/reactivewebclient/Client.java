@@ -1,4 +1,4 @@
-package co.com.gcode;
+package co.com.gcode.reactivewebclient;
 
 
 import lombok.*;
