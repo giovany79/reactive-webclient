@@ -31,12 +31,17 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('org.springframework:spring-context')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
+    testCompile('org.junit.jupiter:junit-jupiter-api')
+    testCompile('org.junit.jupiter:junit-jupiter-engine')
 
     compileOnly('org.projectlombok:lombok')
     implementation('org.projectlombok:lombok')
     testCompileOnly('org.projectlombok:lombok')
     annotationProcessor('org.projectlombok:lombok')
     testAnnotationProcessor('org.projectlombok:lombok')
+
+
 }

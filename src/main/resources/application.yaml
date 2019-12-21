@@ -2,7 +2,10 @@
 rest:
   endpoint: https://dry-butterfly-4551.getsandbox.com:443
 
-
-
 server:
   port: 8081
+
+spring:
+  profiles:
+    include:
+      - test

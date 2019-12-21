@@ -1,0 +1,7 @@
+path:
+  get:
+    client: /client/33333
+  save:
+    client: /client
+
+basePath: http://localhost

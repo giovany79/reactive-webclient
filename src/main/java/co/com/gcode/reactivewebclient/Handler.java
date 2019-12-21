@@ -17,16 +17,14 @@ import reactor.core.publisher.Mono;
 @Component
 public class Handler {
 
-    private static final String PATH_CLIENT_CREATE = "/client";
 
-    private static final String PATH_CLIENT_GET= "/client/{id}";
 
     private final WebClient webclient;
 
 
     /**
      * Handler que consulta la entidad cliente del servicio rest pasando el parametro en el metodo GET
-     * @param 'ServerRequest' que contiene la peticion http
+     * @param 'ServerRequest que contiene la peticion http'
      * @return 'Mono<ServerResponse>' devuelve la entidad dentro del body de un server response
      */
     public Mono<ServerResponse> getClient(ServerRequest request) {
@@ -41,9 +39,9 @@ public class Handler {
      * @param documentId: documento de identidad del cliente
      * @return Mono<Client>
      */
-    public Mono<Client> getClientFromRest(String documentId){
+    private Mono<Client> getClientFromRest(String documentId){
         return webclient.get()
-                .uri(PATH_CLIENT_GET, documentId)
+                .uri(Constants.ROUTE_CLIENT_GET, documentId)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Client.class);
@@ -51,7 +49,7 @@ public class Handler {
 
     /**
      * Hanlder que consume el servicio rest de almacenamiento mediante un body en eviado por POST
-     * @param 'ServerRequest' que contiene la peticion http
+     * @param 'serverRequest que contiene la peticion http'
      * @return 'Mono<ServerResponse>' devuelve un valor booleano indicado si el guardado fue exitoso o fallido
      */
     public Mono<ServerResponse> setClient(ServerRequest request) {
@@ -72,9 +70,9 @@ public class Handler {
      * @param client Entidad cliente
      * @return client Entidad cliente almacenada
      */
-    public Mono<Client> saveClient(Mono<Client> client){
+    private Mono<Client> saveClient(Mono<Client> client){
         return webclient.post()
-                .uri(PATH_CLIENT_CREATE )
+                .uri(Constants.ROUTE_CLIENT_CREATE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(client, Client.class)
                 .retrieve()
